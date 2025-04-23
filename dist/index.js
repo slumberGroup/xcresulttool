@@ -1414,7 +1414,8 @@ class Parser {
                 '--output-path',
                 outputPath,
                 '--id',
-                reference
+                reference,
+                '--legacy'
             ];
             const options = {
                 silent: true
@@ -1447,7 +1448,8 @@ class Parser {
                 '--path',
                 this.bundlePath,
                 '--format',
-                'json'
+                'json',
+                '--legacy'
             ];
             if (reference) {
                 args.push('--id');
@@ -4698,7 +4700,7 @@ class OidcClient {
                 .catch(error => {
                 throw new Error(`Failed to get ID Token. \n 
         Error Code : ${error.statusCode}\n 
-        Error Message: ${error.result.message}`);
+        Error Message: ${error.message}`);
             });
             const id_token = (_a = res.result) === null || _a === void 0 ? void 0 : _a.value;
             if (!id_token) {
