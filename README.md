@@ -127,3 +127,20 @@ GitHub Checks has a maximum text limit of 65535 characters. Currently, any text 
 There is a limit of 50 annotations in GitHub Checks. Currently, any annotations longer than that will be automatically truncated.
 
 **You can set the `show-passed-tests` option to `false` to reduce the output to avoid the limitation.**
+
+## Building the action after making changes
+
+### Prerequisites
+
+- Node.js installed
+- TypeScript CLI installed (`brew install tsc`)
+
+### Building the action
+
+```bash
+# First install dependencies
+npm install
+
+# Then build the action; this will also run the tests
+npm run all
+```
