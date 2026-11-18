@@ -1476,7 +1476,7 @@ function parseObject(element) {
         if (value['_value']) {
             obj[key] = parsePrimitive(value);
         }
-        else if (value['_values']) {
+        else if (isArray(value)) {
             obj[key] = parseArray(value);
         }
         else if (key === '_type') {
@@ -1488,14 +1488,19 @@ function parseObject(element) {
     }
     return obj;
 }
+// Xcode 27 writes an empty array as `{"_type": {"_name": "Array"}}`, with no `_values`.
+function isArray(value) {
+    var _a;
+    return value['_values'] || ((_a = value['_type']) === null || _a === void 0 ? void 0 : _a['_name']) === 'Array';
+}
 function parseArray(arrayElement) {
-    return arrayElement['_values'].map((arrayValue) => {
+    return (arrayElement['_values'] || []).map((arrayValue) => {
         const obj = {};
         for (const [key, value] of Object.entries(arrayValue)) {
             if (value['_value']) {
                 obj[key] = parsePrimitive(value);
             }
-            else if (value['_values']) {
+            else if (isArray(value)) {
                 obj[key] = parseArray(value);
             }
             else if (key === '_type') {
